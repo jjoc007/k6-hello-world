@@ -13,7 +13,14 @@ module.exports = {
             duration: '1m',
             thresholds: {
               'http_req_duration': ['p(99)<1500'], // 99% of requests must complete below 1.5s
-            }
+            },
+            tags: { 
+                stack: 'bb',
+                layer: 'pb',
+                env: 'dev',
+                service: 'authentication',
+                type_test: 'smoke_test' 
+            },
         },
         "load_test": {
             stages: [
@@ -24,7 +31,34 @@ module.exports = {
               thresholds: {
                 'http_req_duration': ['p(99)<1500'], // 99% of requests must complete below 1.5s
                 'logged in successfully': ['p(99)<1500'], // 99% of requests must complete below 1.5s
-              }
+              },
+              tags: { 
+                  stack: 'bb',
+                  layer: 'pb',
+                  env: 'dev',
+                  service: 'authentication',
+                  type_test: 'load_test' 
+              },
+        },
+        "stress_load":{
+            stages: [
+                { duration: '2m', target: 100 }, // below normal load
+                { duration: '5m', target: 100 },
+                { duration: '2m', target: 200 }, // normal load
+                { duration: '5m', target: 200 },
+                { duration: '2m', target: 300 }, // around the breaking point
+                { duration: '5m', target: 300 },
+                { duration: '2m', target: 400 }, // beyond the breaking point
+                { duration: '5m', target: 400 },
+                { duration: '10m', target: 0 }, // scale down. Recovery stage.
+              ],
+            tags: { 
+                stack: 'bb',
+                layer: 'pb',
+                env: 'dev',
+                service: 'authentication',
+                type_test: 'stress_test' 
+            },
         }
     }
 }
