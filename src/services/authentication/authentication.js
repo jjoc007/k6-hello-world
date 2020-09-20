@@ -9,6 +9,5 @@ const HEADERS = {
 const BODY = auth_data.body
 
 export let execute = (data) => {
-    console.log("Execute authentication function")
     return http.post(`${general_data.base_url}${auth_data.url}`, JSON.stringify(BODY), HEADERS)
 }

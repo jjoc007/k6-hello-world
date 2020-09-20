@@ -15,9 +15,9 @@ module.exports = {
               'http_req_duration': ['p(99)<1500'], // 99% of requests must complete below 1.5s
             },
             tags: { 
-                stack: 'bb',
-                layer: 'pb',
-                env: 'dev',
+                stack: 'bb',   // variable de entorno
+                layer: 'pb',   // variable de entorno
+                env: 'dev',    // variable de entorno
                 service: 'authentication',
                 type_test: 'smoke_test' 
             },
@@ -33,14 +33,14 @@ module.exports = {
                 'logged in successfully': ['p(99)<1500'], // 99% of requests must complete below 1.5s
               },
               tags: { 
-                  stack: 'bb',
-                  layer: 'pb',
-                  env: 'dev',
+                  stack: 'bb',     // variable de entorno
+                  layer: 'pb',     // variable de entorno
+                  env: 'dev',      // variable de entorno
                   service: 'authentication',
                   type_test: 'load_test' 
               },
         },
-        "stress_load":{
+        "stress_test":{
             stages: [
                 { duration: '2m', target: 100 }, // below normal load
                 { duration: '5m', target: 100 },
